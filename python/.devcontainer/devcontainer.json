@@ -1,0 +1,51 @@
+{
+	"name": "Python 3",
+	"build": {
+		"dockerfile": "Dockerfile",
+		"context": ".."
+	},
+
+	// Set *default* container specific settings.json values on container create.
+	"settings": { 
+		"terminal.integrated.shell.linux": "/bin/bash",
+		
+		"python.pythonPath": "/usr/local/bin/python",
+		
+		"python.formatting.blackPath": "/vscode/.local/bin/black",
+		"python.formatting.provider": "black",
+		
+		"python.linting.enabled": true,
+				
+		"python.linting.banditPath": "/vscode/.local/bin/bandit",
+		"python.linting.banditEnabled": true,
+
+		"python.linting.flake8Path": "/vscode/.local/bin/flake8",
+		"python.linting.flake8Enabled": true,
+		
+		"python.linting.pydocstylePath": "/vscode/.local/bin/pydocstyle",
+		"python.linting.pydocstyleEnabled": true,
+		
+		"python.linting.pylintPath": "/vscode/.local/bin/pylint",
+		"python.linting.pylintEnabled": false,
+		
+		"python.linting.pycodestylePath": "/vscode/.local/bin/pycodestyle",
+		"python.linting.pycodestyleEnabled": false,
+
+		"python.linting.mypyPath": "/vscode/.local/bin/mypy",
+		"python.linting.mypyEnabled": false,
+
+		"python.languageServer": "Pylance"
+	},
+
+	// Add the IDs of extensions you want installed when the container is created.
+	"extensions": [
+		"ms-python.python",
+		"ms-python.vscode-pylance"
+	],
+
+	// Use 'forwardPorts' to make a list of ports inside the container available locally.
+	// "forwardPorts": [],
+
+	// Use 'postCreateCommand' to run commands after the container is created.
+	"postCreateCommand": "python -m pip --disable-pip-version-check --no-cache-dir install --user -r requirements.txt"
+}

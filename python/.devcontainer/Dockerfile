@@ -1,0 +1,31 @@
+FROM python:3.8-slim-buster
+
+ENV PYTHONUNBUFFERED 1
+
+RUN export DEBIAN_FRONTEND=noninteractive &&\
+    apt-get update &&\
+    apt-get install -y --no-install-recommends \
+    # Install packages
+    git ;\
+    rm -rf /var/lib/apt/lists/*
+
+ARG USER_UID=1000
+ARG USER_GID=1000
+ARG USERNAME=vscode
+
+RUN groupadd --gid $USER_GID $USERNAME &&\
+    useradd --uid $USER_UID --gid $USER_GID --create-home --home-dir /$USERNAME $USERNAME
+
+USER $USERNAME
+
+RUN python -m pip --disable-pip-version-check --no-cache-dir install --user pipx &&\
+    python -m pipx ensurepath &&\
+    . $HOME/.profile &&\
+    # Install python tools
+    pipx install flake8 &&\
+    pipx install black &&\
+    pipx install bandit &&\
+    pipx install mypy &&\
+    pipx install pylint &&\
+    pipx install pycodestyle &&\
+    pipx install pydocstyle
